@@ -8,14 +8,11 @@ class UserLoginPage extends StatefulWidget {
 class _UserLoginPageState extends State<UserLoginPage> {
   TextEditingController _controller;
 
+  FocusNode focusNode1 = FocusNode();
+
+
   var userName;
   var userPassword;
-
-  _userNameInputChange(content) {
-    if (content != null) {
-      setState(() {});
-    }
-  }
 
   @override
   void initState() {
@@ -30,22 +27,36 @@ class _UserLoginPageState extends State<UserLoginPage> {
         centerTitle: true,
         title: Text(
           '登录',
-          style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 17.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Image.asset("assets/images/t_user.png"),
-              TextField(
-                decoration: InputDecoration(hintText: "请输入密码"),
+      body: Padding(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 80.0,
+              child: Row(
+                children: <Widget>[
+                  // Image.asset("assets/images/t_user.png"),
+                  TextField(
+                    controller: _controller,
+                    autofocus: true,
+                    focusNode: focusNode1,
+                    decoration: InputDecoration(
+                      labelText: "用户名",
+                      hintText: "用户名或邮箱",
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  )
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
