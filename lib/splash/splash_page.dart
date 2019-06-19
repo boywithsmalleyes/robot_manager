@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:robot_manager/account/user_login.dart';
 import 'package:robot_manager/custome_route.dart';
 
 import '../main_page.dart';
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: Duration(seconds: 1),
     );
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
 
@@ -26,7 +27,7 @@ class _SplashPageState extends State<SplashPage>
       print('$status');
       if (status == AnimationStatus.completed) {
         Navigator.pushAndRemoveUntil(
-            context, CustomeRoute(MainPage(), 1), (router) => router == null);
+            context, CustomeRoute(UserLoginPage(), 1), (router) => router == null);
       }
     });
     _controller.forward();
