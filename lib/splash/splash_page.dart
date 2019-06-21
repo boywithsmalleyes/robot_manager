@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds:3),
     );
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
 

@@ -39,7 +39,7 @@ class SharedPrefenenceUtil {
 
   static Future<bool> getBoolData(key) async {
     var sp = await SharedPreferences.getInstance();
-    return sp.getBool(key) ? false : true;
+    return sp.getBool(key) ?? false;
   }
 
   static void setBoolData(key, value) async {
