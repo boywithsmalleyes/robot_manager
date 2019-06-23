@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:robot_manager/network/dio_util.dart';
+import 'package:robot_manager/util/device_info_util.dart';
+import 'package:robot_manager/util/toast_util.dart';
+import 'dart:convert';
 
 class UserLoginPage extends StatefulWidget {
   @override
@@ -54,19 +59,19 @@ class _UserLoginPageState extends State<UserLoginPage> {
   }
 
   _login() async {
-    Map<String, String> param = Map();
+    Map<String, dynamic> param = Map();
     param['userName'] = _nameController.text.toString();
     param['userPwd'] = _pwdController.text.toString();
-    String response =
-        await DioUtil().post("/login", param);
-    print('Login response: $response');
+    param['imei'] = await DeviceUtil().getDeviceImei();
+    param['mid'] = await DeviceUtil().getDeviceMid();
+    String response = await DioUtil().post("/login", param);
+    final jsonMap = json.decode(response);
+    print('Login response: ${jsonMap['msg']}');
+    ToastUtil().showToast(context, '${jsonMap['msg']}');
   }
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'isShowNameClear: $isShowNameClear   isShowPwdClear: $isShowPwdClear');
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -101,6 +106,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                           Icons.clear,
                           color: Colors.grey,
                         ),
+                        alignment: Alignment.center,
                         onPressed: () {
                           _nameController.clear();
                         },
@@ -127,6 +133,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                           Icons.clear,
                           color: Colors.grey,
                         ),
+                        alignment: Alignment.center,
                         onPressed: () {
                           _pwdController.clear();
                         })

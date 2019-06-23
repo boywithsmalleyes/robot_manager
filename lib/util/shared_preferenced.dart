@@ -29,7 +29,7 @@ class SharedPrefenenceUtil {
 
   static Future<String> getStringData(key) async {
     var sp = await SharedPreferences.getInstance();
-    return sp.getString(key);
+    return sp.getString(key) ?? "";
   }
 
   static void setStringData(key, value) async {
